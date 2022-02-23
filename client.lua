@@ -25,13 +25,14 @@ local function findClosestPump(coords)
 end
 
 local function isVehicleCloseEnough(playerCoords, vehicle)
-    return #(GetEntityCoords(vehicle) - playerCoords) <= 3 or false
+    return #(GetEntityCoords(vehicle) - playerCoords) <= 4 or false
 end
 
 local function notify(message)
     SetNotificationTextEntry('STRING')
     AddTextComponentString(message)
     DrawNotification(0,1)
+    --exports['mythic_notify']:DoHudText('inform', message)
 end
 
 local stations = {}
@@ -307,6 +308,7 @@ local function StartFueling(vehicle, fuelingMode)
 
         if fuelingMode == 'can' then 
             -- reduce can durability
+            TriggerServerEvent('ox_fuel:cancar', true, fuel)
         end
 
         -- if can durability is 0, keep fuel at current level and isFueling false
@@ -369,7 +371,7 @@ end
 function TargetFueling(entity)
 
     local ped = PlayerPedId()
-    local vehicle = GetPlayersLastVehicle() or entity
+    local vehicle = GetPlayersLastVehicle()
     local petrolCan = GetSelectedPedWeapon(ped) == `WEAPON_PETROLCAN` and true or false
     local playerCoords = GetEntityCoords(ped)
     local isNearPump = findClosestPump(playerCoords)
@@ -390,18 +392,39 @@ function TargetFueling(entity)
             return notify('Vehicle far from pump')
         end
     else
-        if not Config.petrolCan.enabled or isFueling or IsPedInAnyVehicle(ped) then return print('skipping fuel with can -- debug') end
+        if isFueling or not Config.petrolCan.enabled or IsPedInAnyVehicle(ped) then return print('skipping fuel with can -- debug') end
         if isNearPump then return notify('Put your can away before fueling with the pump') end
-
-        if isVehicleCloseEnough(playerCoords, vehicle) and not vehicle == Config.electricModels then
+        print(isVehicleCloseEnough(playerCoords, vehicle))
+        if isVehicleCloseEnough(playerCoords, vehicle) then --and not vehicle == Config.electricModels
             StartFueling(vehicle, 'can')
        
         else
-            return notify('Vehicle far from you')
+            return notify('Vehicle too far away')
         end
     end
 end
 Citizen.CreateThread(function()
+    if Config.qtargetcar then
+        exports.qtarget:AddTargetBone({'wheel_lr','wheel_rr'},{ 
+            options = {
+                {
+                    icon = "fas fa-gas-pump",
+                    label = "Fuel vehicle",
+                    canInteract = function()
+                        local count = exports.ox_inventory:Search('count', 'WEAPON_PETROLCAN')
+                        if count >= 1  then
+                            return true
+                        end
+                        return false
+                    end,
+                    action = function()
+                        TargetFueling()
+                    end
+                },
+            },
+            distance = 1.5
+        })
+    end
     if not Config.qtargetpump and not Config.qtargetcar then
         RegisterCommand('startfueling', function()
             local ped = PlayerPedId()
