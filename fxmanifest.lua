@@ -18,7 +18,9 @@ dependencies {
 }
 
 shared_scripts {
-	'config.lua'
+	'config.lua',
+	'data/stations.lua',
+	'data/pumps.lua',
 }
 
 server_scripts {
@@ -27,6 +29,7 @@ server_scripts {
 
 client_scripts {
 	'@pe-lualib/init.lua',
-	'data/stations.lua',
+	'@PolyZone/client.lua',
+	'@PolyZone/BoxZone.lua',
 	'client.lua'
 }
