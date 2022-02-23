@@ -1,87 +1,92 @@
 Config = {
-	-- Enable support for ox_inventory
+    -- Enable support for ox_inventory
 	inventory = true,
 
-	-- Enable support for qTarget
-	qtarget = false,
+    -- Enable support for qTarget
+    qtargetcar = false,
+    qtargetpump = true,
 
-	/*
-	* Show or hide gas stations blips
-	* 0 - Hide all
-	* 1 - Show nearest (5000ms interval check)
-	* 2 - Show all
-	*/
-	showBlips = 1,
+    usedrawtextui = true,
+    blipname = 'Tankstation',
 
-	-- What keys to disable while fueling
-	disabledKeys = { 0, 22, 23, 24, 29, 30, 31, 37, 44, 56, 82, 140, 166, 167, 168, 170, 288, 289, 311, 323 },
+    --[[
+    * Show or hide gas stations blips
+    * 0 - Hide all
+    * 1 - Show nearest (5000ms interval check)
+    * 2 - Show all
+    ]]
 
-	-- Total duration (ex. 10% missing fuel): 10 / 0.25 * 250 = 10 seconds
+    showBlips = 1,
 
-	-- Fuel refill value (every 250msec add 0.25%)
-	refillValue = 0.25,
+    -- What keys to disable while fueling
+    disabledKeys = { 0, 22, 23, 24, 29, 30, 31, 37, 44, 56, 82, 140, 166, 167, 168, 170, 288, 289, 311, 323 },
 
-	-- Fuel tick time (every 250 msec)
-	refillTick = 250,
+    -- Total duration (ex. 10% missing fuel): 10 / 0.25 * 250 = 10 seconds
 
-	-- Fuel cost (Added once every tick)
-	priceTick = 5,
+    -- Fuel refill value (every 250msec add 0.25%)
+    refillValue = 0.25,
 
-	-- Enables fuel can 
-	petrolCan = {
-		enabled = true,
-		duration = 5000,
-		price = 1000,
-		refillPrice = 800,
-	},
+    -- Fuel tick time (every 250 msec)
+    refillTick = 250,
 
-	-- Fuel usage multiplier based on class (default 1.0)
-	classUsage = {
-		[13] = 0.0, -- Cycles
-	},
+    -- Fuel cost (Added once every tick)
+    priceTick = 5,
 
-	-- Fuel usage per second based on vehicle RPM
-	rpmUsage = {
-		[1.0] = 0.14,
-		[0.9] = 0.12,
-		[0.8] = 0.10,
-		[0.7] = 0.09,
-		[0.6] = 0.08,
-		[0.5] = 0.07,
-		[0.4] = 0.05,
-		[0.3] = 0.04,
-		[0.2] = 0.02,
-		[0.1] = 0.01,
-		[0.0] = 0.00,
-	},
+    -- Enables fuel can 
+    petrolCan = {
+        enabled = true,
+        duration = 5000,
+        price = 1000,
+        refillPrice = 800,
+    },
 
-	-- Electic vehicles
-	electricModels = {
-		[`airtug`] = true,
-		[`neon`] = true,
-		[`raiden`] = true,
-		[`caddy`] = true,
-		[`caddy2`] = true,
-		[`caddy3`] = true,
-		[`cyclone`] = true,
-		[`dilettante`] = true,
-		[`dilettante2`] = true,
-		[`surge`] = true,
-		[`tezeract`] = true,
-		[`imorgon`] = true,
-		[`khamelion`] = true,
-		[`voltic`] = true,
-		[`iwagen`] = true,
-	},
+    -- Fuel usage multiplier based on class (default 1.0)
+    classUsage = {
+        [13] = 0.0, -- Cycles
+    },
 
-	-- Gas pump models
-	pumpModels = {
-		`prop_gas_pump_old2`,
-		`prop_gas_pump_1a`,
-		`prop_vintage_pump`,
-		`prop_gas_pump_old3`,
-		`prop_gas_pump_1c`,
-		`prop_gas_pump_1b`,
-		`prop_gas_pump_1d`,
-	}
+    -- Fuel usage per second based on vehicle RPM
+    rpmUsage = {
+        [1.0] = 0.14,
+        [0.9] = 0.12,
+        [0.8] = 0.10,
+        [0.7] = 0.09,
+        [0.6] = 0.08,
+        [0.5] = 0.07,
+        [0.4] = 0.05,
+        [0.3] = 0.04,
+        [0.2] = 0.02,
+        [0.1] = 0.01,
+        [0.0] = 0.00,
+    },
+
+    -- Electic vehicles
+    electricModels = {
+        [`airtug`] = true,
+        [`neon`] = true,
+        [`raiden`] = true,
+        [`caddy`] = true,
+        [`caddy2`] = true,
+        [`caddy3`] = true,
+        [`cyclone`] = true,
+        [`dilettante`] = true,
+        [`dilettante2`] = true,
+        [`surge`] = true,
+        [`tezeract`] = true,
+        [`imorgon`] = true,
+        [`khamelion`] = true,
+        [`voltic`] = true,
+        [`iwagen`] = true,
+    },
+
+    -- Gas pump models
+    pumpModels = {
+        `prop_gas_pump_old2`,
+        `prop_gas_pump_1a`,
+        `prop_vintage_pump`,
+        `prop_gas_pump_old3`,
+        `prop_gas_pump_1c`,
+        `prop_gas_pump_1b`,
+        `prop_gas_pump_1d`,
+    }
 }
