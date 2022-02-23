@@ -72,4 +72,18 @@ if Config.inventory then
             end
         end
     end)
+	RegisterNetEvent('ox_fuel:cancar', function(hasCan, fuel)
+
+        if hasCan then
+            local item = ox_inventory:Search(source, 'slots', 'WEAPON_PETROLCAN')
+            if item then
+                item = item[1]
+                if item.metadata.durability == nil then item.metadata.durability = 99 end
+                if  item.metadata.ammo == nil then  item.metadata.ammo = 99 end
+                item.metadata.durability  = item.metadata.durability - 0.1
+                item.metadata.ammo = item.metadata.ammo - 0.25
+                ox_inventory:SetMetadata(source, item.slot, item.metadata)
+            end
+        end
+    end)
 end
