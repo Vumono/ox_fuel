@@ -130,6 +130,23 @@ for i = 1, #stations do
                     distance = 3.5
                 })
         elseif Config.qtargetpump and not inStationInterval and isInside then
+				inStationInterval = SetInterval(function()
+                local ped = PlayerPedId()
+                local playerCoords = GetEntityCoords(ped)
+                
+                if not findClosestPump(playerCoords) then return end
+
+                if IsPedInAnyVehicle(ped) then
+                    DisplayHelpTextThisFrame('fuelLeaveVehicleText', false)
+                elseif not isFueling then
+                    local vehicle = GetVehiclePedIsIn(ped, true)
+                    if not isVehicleCloseEnough(playerCoords, vehicle) and Config.petrolCan.enabled then
+                        DisplayHelpTextThisFrame('petrolcanHelpText', false)
+                    else
+                        DisplayHelpTextThisFrame('fuelHelpText', false)
+                    end
+                end
+            end)
             exports.qtarget:AddTargetModel({-2007231801, 1339433404,1694452750,1933174915,-462817101,-469694731,-164877493}, {
                 options = {
                     {
